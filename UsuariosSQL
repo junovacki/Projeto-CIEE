@@ -1,0 +1,6 @@
+CREATE TABLE [dbo].[Usuarios] (
+    [id_login] INT        NOT NULL,
+    [login]    NCHAR (50) NULL,
+    [senha]    NCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([id_login] ASC)
+);

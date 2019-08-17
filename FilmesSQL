@@ -1,0 +1,9 @@
+CREATE TABLE [dbo].[Filmes] (
+    [id_filmes] INT         IDENTITY (1, 1) NOT NULL,
+    [codigo]    NCHAR (10)  NOT NULL,
+    [titulo]    NCHAR (50)  NOT NULL,
+    [data]      DATE        NOT NULL,
+    [categoria] NCHAR (20)  NOT NULL,
+    [atores]    NCHAR (500) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_filmes] ASC)
+);
