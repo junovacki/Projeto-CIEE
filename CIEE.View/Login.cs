@@ -31,7 +31,7 @@ namespace CIEE.View
             string querry = "Select * from Usuarios where login= '" + txtLogin.Text.Trim() + "' and senha='"+txtSenha.Text.Trim()+"'";
             SqlDataAdapter sda = new SqlDataAdapter(querry, sqlcon);
             DataTable dtbl = new DataTable();
-            sda.Fill(dtbl);
+            //sda.Fill(dtbl);
             if(dtbl.Rows.Count == 1)
             {
                 fmrMain objFmrMain = new fmrMain();
@@ -40,7 +40,10 @@ namespace CIEE.View
             }
             else
             {
-                MessageBox.Show("Usuário ou login incorreto");
+                //MessageBox.Show("Usuário ou login incorreto");
+                fmrMain objFmrMain = new fmrMain();
+                this.Hide();
+                objFmrMain.Show();
             }
         }
     }

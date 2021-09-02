@@ -14,7 +14,7 @@ namespace CIEE.View
     public partial class fmrMain : Form
     {
          int id_filmes;
-        SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\Documents\FIlmesDB.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Julius\source\repos\Projeto-CIEE\FIlmesDB.mdf;Integrated Security=True;Connect Timeout=30");
         public fmrMain()
         {
             InitializeComponent();
@@ -83,10 +83,12 @@ namespace CIEE.View
         {
             try
             {
+                int id = (int)dataGridView1.CurrentRow.Cells[0].Value;
                 if (sqlcon.State == ConnectionState.Closed)
                     sqlcon.Open();
-                SqlCommand sqlCmd = new SqlCommand("FilmesDelet", sqlcon);
-                sqlCmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand sqlCmd = new SqlCommand("FilmeDelet", sqlcon);
+
+                sqlCmd.CommandText = "DELETE FROM [dbo].[Filmes] WHERE id_filmes = " + id;
                 
                 sqlCmd.Parameters.AddWithValue("@FilmesId", id_filmes);
                 
@@ -100,6 +102,35 @@ namespace CIEE.View
             {
                 MessageBox.Show(ex.Message, "Mensagem de erro");
                 
+            }
+        }
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = (int)dataGridView1.CurrentRow.Cells[0].Value;
+                if (sqlcon.State == ConnectionState.Closed)
+                    sqlcon.Open();
+                SqlCommand sqlCmd = new SqlCommand("FilmeAddOrEdit", sqlcon);
+
+                
+
+                sqlCmd.CommandText = "UPDATE [dbo].[Filmes] SET codigo = " + txtCoodigo.Text.Trim() + ", titulo = '" + txtTitulo2.Text.Trim() + "', data = '"+ textBox3.Text.Trim() + "', categoria = '"+ textBox4.Text.Trim() + "', atores = '"+ textBox6.Text.Trim() + "' WHERE id_filmes = " + id;
+                
+
+                sqlCmd.Parameters.AddWithValue("@id_filmes", id);
+                
+                sqlCmd.ExecuteNonQuery();
+                MessageBox.Show("Atualizado com sucesso");
+                
+                ResetText();
+                FillDataGridView();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensagem de erro");
+
             }
         }
     }
